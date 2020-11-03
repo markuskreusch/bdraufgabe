@@ -1,0 +1,7 @@
+<app-book *ngFor="let book of books" [book]="book" (deleted)="onDeleted($event)"></app-book>
+<div>
+<h2>Add book</h2>
+<input [(ngModel)]="newBookAuthor" placeholder="author" /> <br/>
+<input [(ngModel)]="newBookTitle" placeholder="title" /> <br/>
+<button (click)="addBook()">Add book</button>
+</div>

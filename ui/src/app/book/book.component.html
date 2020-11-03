@@ -1,0 +1,19 @@
+<div class="book">
+  <div *ngIf="!edit">
+    <p>Author {{book.author}}</p>
+    <p>Title {{book.title}}</p>
+    <button (click)="edit = true">Edit</button>
+    <div>
+      <button *ngIf="book.status == enumBookStatus.Available" (click)="changeStatusTo(enumBookStatus.Borrowed)">Borrow book</button>
+      <button *ngIf="book.status == enumBookStatus.Borrowed" (click)="changeStatusTo(enumBookStatus.Available)">Return book</button>
+    </div>
+    <div>
+      <button (click)="delete()">Delete book</button>
+    </div>
+  </div>
+  <div *ngIf="edit">
+    <input [(ngModel)]="book.author" placeholder="Author" /><br/>
+    <input [(ngModel)]="book.title" placeholder="Title" /><br/>
+    <button (click)="save()">Save</button>
+  </div>
+</div>

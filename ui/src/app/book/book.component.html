@@ -1,19 +1,23 @@
-<div class="book">
+<mat-card class="book">
   <div *ngIf="!edit">
-    <p>Author {{book.author}}</p>
-    <p>Title {{book.title}}</p>
-    <button (click)="edit = true">Edit</button>
-    <div>
-      <button *ngIf="book.status == enumBookStatus.Available" (click)="changeStatusTo(enumBookStatus.Borrowed)">Borrow book</button>
-      <button *ngIf="book.status == enumBookStatus.Borrowed" (click)="changeStatusTo(enumBookStatus.Available)">Return book</button>
-    </div>
-    <div>
-      <button (click)="delete()">Delete book</button>
-    </div>
+    <p>{{book.author}} - {{book.title}}</p>
+
+    <button mat-button (click)="edit = true" color="primary">Edit</button>
+
+    <button mat-button color="accent" *ngIf="book.status == enumBookStatus.Available" (click)="changeStatusTo(enumBookStatus.Borrowed)">Borrow book</button>
+    <button mat-button color="accent" *ngIf="book.status == enumBookStatus.Borrowed" (click)="changeStatusTo(enumBookStatus.Available)">Return book</button>
+
+    <button mat-button (click)="delete()" color="warn">Delete book</button>
   </div>
   <div *ngIf="edit">
-    <input [(ngModel)]="book.author" placeholder="Author" /><br/>
-    <input [(ngModel)]="book.title" placeholder="Title" /><br/>
-    <button (click)="save()">Save</button>
+    <mat-form-field appearance="fill">
+      <mat-label>Author</mat-label>
+      <input matInput [(ngModel)]="book.author" placeholder="Author">
+    </mat-form-field><br/>
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput [(ngModel)]="book.title" placeholder="Title">
+    </mat-form-field><br/>
+    <button mat-button (click)="save()" color="primary">Save</button>
   </div>
-</div>
+</mat-card>

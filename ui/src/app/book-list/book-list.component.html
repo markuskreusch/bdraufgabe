@@ -1,7 +1,14 @@
 <app-book *ngFor="let book of books" [book]="book" (deleted)="onDeleted($event)"></app-book>
+<p *ngIf="books.length == 0">No books created</p>
 <div>
-<h2>Add book</h2>
-<input [(ngModel)]="newBookAuthor" placeholder="author" /> <br/>
-<input [(ngModel)]="newBookTitle" placeholder="title" /> <br/>
-<button (click)="addBook()">Add book</button>
+  <h2>Add book</h2>
+  <mat-form-field appearance="fill">
+    <mat-label>Author</mat-label>
+    <input matInput [(ngModel)]="newBookAuthor" placeholder="Author">
+  </mat-form-field><br/>
+  <mat-form-field appearance="fill">
+    <mat-label>Title</mat-label>
+    <input matInput [(ngModel)]="newBookTitle" placeholder="Title">
+  </mat-form-field><br/>
+  <button mat-raised-button (click)="addBook()" color="primary">Add book</button>
 </div>

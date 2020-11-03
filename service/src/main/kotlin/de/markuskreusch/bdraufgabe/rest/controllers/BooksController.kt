@@ -26,14 +26,14 @@ class BooksController(
     }
 
     @PostMapping
-    fun create(@RequestBody bookDto: BookDto): ResponseEntity<Unit> {
+    fun create(@RequestBody bookDto: BookDto): ResponseEntity<BookDto> {
 
         val book = mapper.toBook(bookDto)
         repository.save(book)
 
         return ResponseEntity
                 .created(URI.create("./" + book.id))
-                .build()
+                .body(mapper.toDto(book))
     }
 
     /*

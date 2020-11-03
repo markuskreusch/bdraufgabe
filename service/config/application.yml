@@ -4,3 +4,7 @@ spring.datasource:
   username: username
   password: secret
   database-platform: org.hibernate.dialect.H2Dialect
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update

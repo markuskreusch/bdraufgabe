@@ -69,4 +69,14 @@ class BooksControllerTest {
         """.trimIndent(), books, false)
     }
 
+    @Test
+    fun testCreateBook() {
+
+    }
+
+    /*
+     * Usually there should be testcases for the other methods as well but because of the limited time I decided to
+     * just implement a test for list and handle the rest in the integration test.
+     */
+
 }

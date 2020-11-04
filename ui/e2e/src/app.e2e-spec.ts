@@ -6,11 +6,32 @@ describe('workspace-project App', () => {
 
   beforeEach(() => {
     page = new AppPage();
+    page.navigateTo();
+    page.deleteAllBooks();
   });
 
-  it('should display welcome message', () => {
-    page.navigateTo();
+  it('should display title', () => {
     expect(page.getTitleText()).toEqual('Books');
+  });
+
+  it('should create book', () => {
+    page.getAddBookAuthor().sendKeys('TestAuthor');
+    page.getAddBookTitle().sendKeys('TestTitle');
+    page.getAddBookButton().click();
+
+    expect(page.getBookText()).toEqual('TestAuthor - TestTitle');
+  });
+
+  it('should delete book', () => {
+    page.deleteAllBooks();
+
+    page.getAddBookAuthor().sendKeys('TestAuthor');
+    page.getAddBookTitle().sendKeys('TestTitle');
+    page.getAddBookButton().click();
+
+    page.getBookDeleteButton().click();
+
+    expect(page.getBooks.length).toEqual(0);
   });
 
   afterEach(async () => {

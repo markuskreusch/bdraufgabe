@@ -1,5 +1,7 @@
+<mat-progress-spinner mode="indeterminate" *ngIf="loading"></mat-progress-spinner>
 <app-book *ngFor="let book of books" [book]="book" (deleted)="onDeleted($event)"></app-book>
-<p *ngIf="books.length == 0">No books created</p>
+<p *ngIf="error">Error while loading books</p>
+<p *ngIf="!loading && !error && books.length == 0">No books created</p>
 <div>
   <h2>Add book</h2>
   <mat-form-field appearance="fill">

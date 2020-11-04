@@ -2,7 +2,7 @@
   <div *ngIf="!edit">
     <p>{{book.author}} - {{book.title}}</p>
 
-    <button mat-button (click)="edit = true" color="primary">Edit</button>
+    <button mat-button (click)="startEditing()" color="primary">Edit</button>
 
     <button mat-button color="accent" *ngIf="book.status == enumBookStatus.Available" (click)="changeStatusTo(enumBookStatus.Borrowed)">Borrow book</button>
     <button mat-button color="accent" *ngIf="book.status == enumBookStatus.Borrowed" (click)="changeStatusTo(enumBookStatus.Available)">Return book</button>
@@ -12,11 +12,11 @@
   <div *ngIf="edit">
     <mat-form-field appearance="fill">
       <mat-label>Author</mat-label>
-      <input matInput [(ngModel)]="book.author" placeholder="Author">
+      <input matInput [(ngModel)]="newAuthor" placeholder="Author">
     </mat-form-field><br/>
     <mat-form-field appearance="fill">
       <mat-label>Title</mat-label>
-      <input matInput [(ngModel)]="book.title" placeholder="Title">
+      <input matInput [(ngModel)]="newTitle" placeholder="Title">
     </mat-form-field><br/>
     <button mat-button (click)="save()" color="primary">Save</button>
   </div>

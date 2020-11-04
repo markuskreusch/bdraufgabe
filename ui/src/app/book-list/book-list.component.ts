@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Book} from '../book';
 import {BookService} from '../book.service';
 
@@ -14,27 +14,43 @@ export class BookListComponent implements OnInit {
   newBookAuthor: string;
   newBookTitle: string;
 
-  constructor(private bookService: BookService) { }
+  loading = true;
+  error = false;
+
+  constructor(private bookService: BookService) {
+  }
 
   ngOnInit(): void {
-    this.bookService.getBooks().subscribe(books => {
-      this.books = books;
-    });
+    this.bookService.getBooks().subscribe(
+      books => {
+        this.books = books;
+        this.loading = false;
+      }, _ => {
+        console.log('Failed to load books');
+        this.error = true;
+        this.loading = false;
+      });
   }
 
   addBook(): void {
-    this.bookService.add(this.newBookAuthor, this.newBookTitle).subscribe(book => {
-      this.books.push(book);
-      this.newBookTitle = '';
-      this.newBookAuthor = '';
-    });
+    this.bookService.add(this.newBookAuthor, this.newBookTitle).subscribe(
+      book => {
+        this.books.push(book);
+        this.newBookTitle = '';
+        this.newBookAuthor = '';
+      }, _ => {
+        console.log('Failed to create book');
+      });
   }
 
   onDeleted(book: Book): void {
-    this.bookService.delete(book).subscribe(_ => {
-      const index: number = this.books.indexOf(book);
-      this.books.splice(index, 1);
-    });
+    this.bookService.delete(book).subscribe(
+      _ => {
+        const index: number = this.books.indexOf(book);
+        this.books.splice(index, 1);
+      }, _ => {
+        console.log('Failed to delete book');
+      });
   }
 
 }

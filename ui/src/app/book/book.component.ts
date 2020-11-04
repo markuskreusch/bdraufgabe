@@ -17,8 +17,11 @@ export class BookComponent implements OnInit {
   @Output() deleted = new EventEmitter<Book>();
 
   edit = false;
+  newAuthor: string;
+  newTitle: string;
 
-  constructor(private bookService: BookService) { }
+  constructor(private bookService: BookService) {
+  }
 
   ngOnInit(): void {
   }
@@ -26,6 +29,8 @@ export class BookComponent implements OnInit {
   changeStatusTo(status: BookStatus): void {
     this.bookService.updateStatus(this.book, status).subscribe(_ => {
       this.book.status = status;
+    }, _ => {
+      console.log('Failed to update status');
     });
   }
 
@@ -33,10 +38,24 @@ export class BookComponent implements OnInit {
     this.deleted.emit(this.book);
   }
 
+  startEditing(): void {
+    this.newAuthor = this.book.author;
+    this.newTitle = this.book.title;
+    this.edit = true;
+  }
+
   save(): void {
-    this.bookService.updateBook(this.book, this.book.author, this.book.title).subscribe(_ => {
-      this.edit = false;
-    });
+    const title = this.newTitle;
+    const author = this.newAuthor;
+    this.bookService.updateBook(this.book, author, title).subscribe(
+      _ => {
+        this.edit = false;
+        this.book.title = title;
+        this.book.author = author;
+      }, _ => {
+        console.log('Failed to save book');
+        this.edit = false;
+      });
   }
 
 }

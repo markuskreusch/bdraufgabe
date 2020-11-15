@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Book} from '../book';
 import {BookService} from '../book.service';
+import {MatDialog} from '@angular/material/dialog';
+import {AddBookComponent} from '../add-book/add-book.component';
 
 @Component({
   selector: 'app-book-list',
@@ -11,13 +13,12 @@ export class BookListComponent implements OnInit {
 
   books: Book[] = [];
 
-  newBookAuthor: string;
-  newBookTitle: string;
-
   loading = true;
   error = false;
 
-  constructor(private bookService: BookService) {
+  constructor(
+    private bookService: BookService,
+    private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -32,17 +33,6 @@ export class BookListComponent implements OnInit {
       });
   }
 
-  addBook(): void {
-    this.bookService.add(this.newBookAuthor, this.newBookTitle).subscribe(
-      book => {
-        this.books.push(book);
-        this.newBookTitle = '';
-        this.newBookAuthor = '';
-      }, _ => {
-        console.log('Failed to create book');
-      });
-  }
-
   onDeleted(book: Book): void {
     this.bookService.delete(book).subscribe(
       _ => {
@@ -53,4 +43,11 @@ export class BookListComponent implements OnInit {
       });
   }
 
+  add(): void {
+    this.dialog.open(AddBookComponent).afterClosed().subscribe(book => {
+      if (book != null) {
+        this.books.push(book);
+      }
+    });
+  }
 }

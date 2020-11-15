@@ -15,19 +15,19 @@ describe('workspace-project App', () => {
   });
 
   it('should create book', () => {
-    page.getAddBookAuthor().sendKeys('TestAuthor');
-    page.getAddBookTitle().sendKeys('TestTitle');
     page.getAddBookButton().click();
+    page.getAddBookForm().getAuthor().sendKeys('TestAuthor');
+    page.getAddBookForm().getTitle().sendKeys('TestTitle');
+    page.getAddBookForm().getAddButton().click();
 
     expect(page.getBookText()).toEqual('TestAuthor - TestTitle');
   });
 
   it('should delete book', () => {
-    page.deleteAllBooks();
-
-    page.getAddBookAuthor().sendKeys('TestAuthor');
-    page.getAddBookTitle().sendKeys('TestTitle');
     page.getAddBookButton().click();
+    page.getAddBookForm().getAuthor().sendKeys('TestAuthor');
+    page.getAddBookForm().getTitle().sendKeys('TestTitle');
+    page.getAddBookForm().getAddButton().click();
 
     page.getBookDeleteButton().click();
 

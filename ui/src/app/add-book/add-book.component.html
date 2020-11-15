@@ -1,0 +1,13 @@
+<div class="add-book">
+  <h2>Add book</h2>
+  <mat-form-field appearance="fill">
+    <mat-label>Author</mat-label>
+    <input name="author" matInput [(ngModel)]="newBookAuthor" placeholder="Author">
+  </mat-form-field><br/>
+  <mat-form-field appearance="fill">
+    <mat-label>Title</mat-label>
+    <input name="title" matInput [(ngModel)]="newBookTitle" placeholder="Title">
+  </mat-form-field><br/>
+  <button mat-raised-button class="add" (click)="addBook()" color="primary">Add book</button>&nbsp;
+  <button mat-raised-button class="cancel" (click)="close()">Close</button>
+</div>

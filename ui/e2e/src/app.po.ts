@@ -1,4 +1,5 @@
-import {browser, by, element, ElementArrayFinder, ElementFinder} from 'protractor';
+import { browser, by, element, ElementArrayFinder, ElementFinder } from 'protractor';
+import { AddForm } from './add-form.po';
 
 export class AppPage {
 
@@ -22,16 +23,12 @@ export class AppPage {
     return element(by.css('app-book p')).getText() as Promise<string>;
   }
 
-  getAddBookAuthor(): ElementFinder {
-    return element(by.css('.add-book input[name="author"]'));
-  }
-
-  getAddBookTitle(): ElementFinder {
-    return element(by.css('.add-book input[name="title"]'));
-  }
-
   getAddBookButton(): ElementFinder {
-    return element(by.css('.add-book button'));
+    return element(by.css('app-book-list button.add'));
+  }
+
+  getAddBookForm(): AddForm {
+    return new AddForm();
   }
 
   getBooks(): ElementArrayFinder {
